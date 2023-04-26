@@ -4,7 +4,13 @@
 #include <string.h>
 
 int main() {
-	FILE *f = fopen("flag.enc.bak", "rb");
+	FILE *f = fopen("flag.enc", "rb");
+	
+	if (f == NULL) {
+		printf("Error while opening the flag file .. \n");
+		return 1;
+	}
+
 	fseek(f, 0, 2);
 	int offset = ftell(f) - 4, seed;
 	fseek(f, 0, 0);
@@ -37,7 +43,7 @@ int main() {
 	}
 
 	printf("Flag: %s\nLength: %d\n", ((unsigned char*)buffer), offset);
-
+	free(buffer);
 	return 0;
 }
 
